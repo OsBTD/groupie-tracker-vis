@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groupie Tracker</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+</head>
+
+<body class="Readme-Page">
+    <div class="top-section">
+        <div class="Menu">
+            <a href="/">
+                <button type="button" class="Home">
+                    <img src="static/assets/Home.svg">
+
+                </button>
+            </a>
+
+            <a href="/about">
+                <button type="button" class="About">
+                    <img src="static/assets/About.svg">
+
+                </button>
+            </a>
+
+            <a href="/readme">
+                <button type="button" class="Readme">
+                    <img src="static/assets/Readme.svg">
+                </button>
+
+            </a>
+
+        </div>
+    </div>
+    <div class="readme-content">
+        <section class="welcome">
+            <h1>Welcome to Groupie Tracker</h1>
+            <p>Explore artist information, concert dates, and locations through a clean interface that aggregates data
+                from multiple APIs. Discover band histories and tour details in one centralized platform.</p>
+        </section>
+
+        <section class="description">
+            <h2>Description</h2>
+            <p>This project, developed as part of our web development curriculum, focuses on API integration and data
+                visualization. Our primary goals were to create an intuitive user interface, implement robust error
+                handling, and ensure seamless data synchronization between multiple data sources.</p>
+        </section>
+
+        <section class="technologies">
+            <h2>Technologies</h2>
+            <ul>
+                <li>Go (Golang)</li>
+                <li>HTML5</li>
+                <li>CSS3</li>
+                <li>JavaScript</li>
+                <li>REST API Integration</li>
+            </ul>
+        </section>
+
+        <section class="installation">
+            <h2>Installation</h2>
+            <p>To run locally:</p>
+            <pre>
+1. Clone the repository:
+git clone https://learn.zone01oujda.ma/git/oatmani/groupie-tracker
+
+2. Navigate to project directory:
+cd groupie-tracker
+
+3. Run the Go server:
+go run main.go
+
+4. Open in browser:
+http://localhost:8080
+        </pre>
+
+            <h3>Docker Setup</h3>
+            <pre>
+1. Build image:
+docker build -t groupie-tracker .
+
+2. Run container:
+docker run -p 8080:8080 groupie-tracker
+        </pre>
+        </section>
+
+        <section class="usage">
+            <h2>Usage</h2>
+            <ul>
+                <li><strong>Artist Exploration:</strong> Browse artists through interactive cards</li>
+                <li><strong>Detail View:</strong> Click cards to see members, albums, and tour dates</li>
+                <li><strong>Concert Tracking:</strong> View locations and dates for past/future events</li>
+                <li><strong>Responsive Design:</strong> Works seamlessly across desktop and mobile</li>
+            </ul>
+        </section>
+
+        <section class="implementation">
+            <h2>Implementation Details</h2>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <h3>API Integration</h3>
+                    <p>Combines data from multiple endpoints while handling rate limiting and errors</p>
+                </div>
+                <div class="detail-item">
+                    <h3>Data Processing</h3>
+                    <p>Go-based backend with concurrent fetching and data normalization</p>
+                </div>
+                <div class="detail-item">
+                    <h3>Error Handling</h3>
+                    <p>Comprehensive error pages with proper HTTP status codes</p>
+                </div>
+                <div class="detail-item">
+                    <h3>Client-Side Routing</h3>
+                    <p>Hash-based navigation for artist details without page reloads</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="contribution">
+            <h2>Contribute</h2>
+            <p>We welcome contributions! Fork the repository and submit pull requests.</p>
+            <pre>
+                1. Fork the project
+                2. Create your feature branch (git checkout -b feature/amazing-feature)
+                3. Commit changes (git commit -m 'Add amazing feature')
+                4. Push branch (git push origin feature/amazing-feature)
+                5. Open Pull Request
+        </pre>
+        </section>
+
+        <section class="contact">
+            <h2>Contact</h2>
+            <p>For questions or feedback:</p>
+            <p>Email: <a href="mailto:borntolearn314@gmail.com">borntolearn314@gmail.com</a></p>
+        </section>
+    </div>
+
+</body>
+
+</html>

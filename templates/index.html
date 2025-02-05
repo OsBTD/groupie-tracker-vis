@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Groupie Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body class="Home-Page">
+    <div class="top-section">
+        <div class="Menu">
+            <a href="/">
+                <button type="button" class="Home">
+                    <img src="static/assets/Home.svg">
+                </button>
+            </a>
+            <a href="/about">
+                <button type="button" class="About">
+                    <img src="static/assets/About.svg">
+                </button>
+            </a>
+            <a href="/readme">
+                <button type="button" class="Readme">
+                    <img src="static/assets/Readme.svg">
+                </button>
+            </a>
+        </div>
+        <div class="Title">
+            <img src="static/assets/Title2.svg">
+        </div>
+    </div>
+    <div class="bottom-section" style="animation: auto-visible 0.1s 0.5s forwards">
+        <div class="left-section">
+            <div class="cards-container">
+                {{range .}}
+                <a href="#artist-{{.Name}}" class="artist-card">
+                    <img src="{{.Image}}" alt="{{.Name}}" class="artist-thumbnail">
+                    <div>
+                        <h2>{{.Name}}</h2>
+                        <p>Active since {{.CreationDate}}</p>
+                    </div>
+                </a>
+                {{end}}
+            </div>
+        </div>
+        <div class="right-section">
+            {{range .}}
+            <div id="artist-{{.Name}}" class="artist-details">
+                <h2>{{.Name}}</h2>
+                <img src="/static/artist_images/{{.Name}}.jpg" alt="{{.Name}}">
+                <!-- <button class="like-btn" data-artist-id="{{.ID}}">👍 {{.Likes}} Likes</button> -->
+                <button type="submit" class="like-btn" data-artist-id="{{.ID}}">👍 {{.Likes}} Likes</button>
+                <div class="info-section">
+                    <p><strong>Active since {{.CreationDate}}</strong></p>
+                    <p><strong>Members:</strong><br>
+                        {{range .Members}}
+                        {{.}}<br>
+                        {{end}}
+                    </p>
+                    <p><strong>First Album:</strong> {{.FirstAlbum}}</p>
+                    <p class="location_title"><strong>Location And Dates:</strong></p>
+                    <ul class="locationsList">
+                        {{range $location, $dates := .DatesLocations.DatesLocations}}
+                        <li class="location">
+                            <strong>{{$location}}:</strong>
+                            <ul class="datesList">
+                                {{range $dates}}
+                                <li class="date">{{.}}</li>
+                                {{end}}
+                            </ul>
+                        </li>
+                        {{end}}
+                    </ul>
+                </div>
+            </div>
+            {{end}}
+            <div id="default-message">Select an artist to view details</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            function handleFragmentCheck() {
+                const fragment = decodeURIComponent(window.location.hash.slice(1));
+                if (fragment) {
+                    const artistDetailElement = document.getElementById(`${fragment}`);
+                    if (!artistDetailElement) {
+                        window.location.href = "/notfound";
+                    }
+                }
+            }
+
+            handleFragmentCheck();
+            window.addEventListener('hashchange', handleFragmentCheck);
+
+            // Like button functionality
+            document.querySelectorAll('.like-btn').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const response = await fetch(`/like/${btn.dataset.artistId}`, { method: 'POST' });
+                    if (response.ok) {
+                        const likes = await response.json();
+                        btn.textContent = `👍 ${likes} Likes`;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
