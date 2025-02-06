@@ -6,6 +6,8 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -42,6 +44,7 @@ type ErrorPage struct {
 	Is404   bool
 	Is500   bool
 	Is403   bool
+	Is400   bool
 }
 
 // fetchData makes an HTTP GET request and decodes the JSON response
@@ -67,6 +70,7 @@ func handleError(w http.ResponseWriter, tmpl *template.Template, code int, messa
 		Is404:   code == http.StatusNotFound,
 		Is500:   code == http.StatusInternalServerError,
 		Is403:   code == http.StatusForbidden,
+		Is400:   code == http.StatusBadRequest,
 	}
 	w.WriteHeader(code)
 	if err := tmpl.Execute(w, errorPage); err != nil {
@@ -202,7 +206,22 @@ func main() {
 	})
 
 	// Serve static files
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("templates"))))
+	http.HandleFunc("/static/", func(w http.ResponseWriter, r *http.Request) {
+		subPath := strings.TrimPrefix(r.URL.Path, "/static/")
+		filePath := filepath.Join("templates", subPath)
+
+		info, err := os.Stat(filePath)
+		if err != nil {
+			handleError(w, templates["error"], http.StatusNotFound, "Page not found")
+			return
+		}
+		if info.IsDir() {
+			handleError(w, templates["error"], http.StatusForbidden, "Access forbidden")
+			return
+		}
+
+		http.StripPrefix("/static/", http.FileServer(http.Dir("templates"))).ServeHTTP(w, r)
+	})
 
 	// Start server
 	port := ":8080"

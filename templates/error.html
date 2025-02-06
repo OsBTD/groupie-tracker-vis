@@ -18,21 +18,21 @@
     <div class="Menu-error">
         <a href="/">
             <button type="button" class="Home">
-                <img src="static/assets/Home.svg">
+                <img src="/static/assets/Home.svg">
 
             </button>
         </a>
 
         <a href="/about">
             <button type="button" class="About">
-                <img src="static/assets/About.svg">
+                <img src="/static/assets/About.svg">
 
             </button>
         </a>
 
         <a href="/readme">
             <button type="button" class="Readme">
-                <img src="static/assets/Readme.svg">
+                <img src="/static/assets/Readme.svg">
             </button>
 
         </a>
@@ -41,13 +41,16 @@
 
     <div class="error-title">
         {{if .Is405}}
-        <img src="static/assets/Error405.svg">
+        <img src="/static/assets/Error405.svg">
         {{else if .Is404}}
-        <img src="static/assets/Error404.svg">
+        <img src="/static/assets/Error404.svg">
         {{else if .Is500}}
-        <img src="static/assets/Error500.svg">
+        <img src="/static/assets/Error500.svg">
         {{else if .Is403}}
-        <img src="static/assets/Error403.svg">
+        <img src="/static/assets/Error403.svg">
+        {{else if .Is400}}
+        <img src="/static/assets/Error400.svg">
+
         {{end}}
     </div>
 </body>
